@@ -1,0 +1,53 @@
+<div class="login-container">
+
+  <div class="login-card">
+
+    <h1 class="logo">
+      Bella Esmeralda
+    </h1>
+
+    <p class="subtitulo">
+      Sistema de Gestión de Transporte
+    </p>
+
+    <div class="input-group">
+
+      <input
+        type="text"
+        placeholder="Usuario"
+        [(ngModel)]="usuario"
+      >
+
+    </div>
+
+    <div class="input-group">
+
+      <input
+        type="password"
+        placeholder="Contraseña"
+        [(ngModel)]="password"
+      >
+
+    </div>
+
+    <button
+      class="btn-login"
+      (click)="iniciarSesion()"
+    >
+
+      Iniciar Sesión
+
+    </button>
+
+    <div class="extra">
+
+      Ayacucho - Huanta
+      <span>
+        2026
+      </span>
+
+    </div>
+
+  </div>
+
+</div>

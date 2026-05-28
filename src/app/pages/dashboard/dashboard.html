@@ -1,0 +1,263 @@
+<div class="dashboard-container">
+
+  
+  <div class="navbar-custom d-flex justify-content-between align-items-center">
+
+    <h2 class="titulo-sistema">
+      Bella Esmeralda
+    </h2>
+
+    <button
+      class="btn btn-light btn-cerrar"
+      routerLink="/login"
+    >
+      Cerrar sesión
+    </button>
+
+  </div>
+
+  <div class="d-flex">
+
+    
+    <div class="sidebar-custom">
+
+      <h3 class="mb-5">
+        MENÚ
+      </h3>
+
+      <ul class="nav flex-column">
+
+        <li class="nav-item mb-3">
+
+          <a
+            routerLink="/dashboard"
+            class="nav-link menu-link active"
+          >
+            Panel
+          </a>
+
+        </li>
+
+        <li class="nav-item mb-3">
+
+          <a
+            routerLink="/pasajeros"
+            class="nav-link menu-link"
+          >
+            Pasajeros
+          </a>
+
+        </li>
+
+        <li class="nav-item mb-3">
+
+          <a
+            routerLink="/viajes"
+            class="nav-link menu-link"
+          >
+            Viajes
+          </a>
+
+        </li>
+
+        <li class="nav-item mb-3">
+
+          <a
+            routerLink="/encomiendas"
+            class="nav-link menu-link"
+          >
+            Encomiendas
+          </a>
+
+        </li>
+
+        <li class="nav-item mb-3">
+
+          <a
+            routerLink="/vehiculos"
+            class="nav-link menu-link"
+          >
+            Vehículos
+          </a>
+
+        </li>
+
+      </ul>
+
+      <!-- SOPORTE -->
+      <div class="soporte-box">
+
+        <h6>
+          Soporte WhatsApp
+        </h6>
+
+        <p>
+          +51 932 114 815
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="contenido-dashboard w-100">
+
+      <h1 class="titulo-panel mb-4">
+        Director del panel
+      </h1>
+
+      <!-- TARJETAS -->
+      <div class="row">
+
+        <div class="col-md-4 mb-4">
+
+          <div class="card card-dashboard shadow border-0">
+
+            <div class="card-body">
+
+              <h5>
+                Pasajeros Totales
+              </h5>
+
+              <div class="numero verde">
+                120
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+          <div class="card card-dashboard shadow border-0">
+
+            <div class="card-body">
+
+              <h5>
+                Viajes Hoy
+              </h5>
+
+              <div class="numero azul">
+                15
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+          <div class="card card-dashboard shadow border-0">
+
+            <div class="card-body">
+
+              <h5>
+                Encomiendas
+              </h5>
+
+              <div class="numero amarillo">
+                35
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- TABLA -->
+      <div class="card tabla-dashboard shadow border-0 mt-4">
+
+        <div class="card-body">
+
+          <h2 class="mb-4">
+            Últimos Viajes
+          </h2>
+
+          <table class="table align-middle">
+
+            <thead>
+
+              <tr>
+
+                <th>Destino</th>
+                <th>Hora</th>
+                <th>Chofer</th>
+                <th>Vehículo</th>
+                <th>Estado</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr>
+
+                <td>Huamanga</td>
+                <td>08:00 AM</td>
+                <td>Carlos Pérez</td>
+                <td>Sprinter combinado</td>
+
+                <td>
+
+                  <span class="badge bg-success">
+                    En ruta
+                  </span>
+
+                </td>
+
+              </tr>
+
+              <tr>
+
+                <td>Lima</td>
+                <td>09:30 AM</td>
+                <td>Juan Ramos</td>
+                <td>Autobús Volvo</td>
+
+                <td>
+
+                  <span class="badge bg-warning text-dark">
+                    Pendiente
+                  </span>
+
+                </td>
+
+              </tr>
+
+              <tr>
+
+                <td>Huanta</td>
+                <td>11:00 AM</td>
+                <td>Pedro López</td>
+                <td>Auto Hyundai</td>
+
+                <td>
+
+                  <span class="badge bg-danger">
+                    Cancelado
+                  </span>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

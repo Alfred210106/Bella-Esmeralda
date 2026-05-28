@@ -1,0 +1,150 @@
+<div class="vehiculos-container">
+
+  <div class="navbar">
+
+    <h2>
+      Gestión de Vehículos
+    </h2>
+
+    <button routerLink="/dashboard">
+      Volver
+    </button>
+
+  </div>
+
+  <div class="card-formulario">
+
+    <h3>
+      Registro de Vehículos
+    </h3>
+
+    <div class="grid-form">
+
+      <input
+        type="text"
+        placeholder="Placa"
+        [(ngModel)]="placa"
+      >
+
+      <input
+        type="text"
+        placeholder="Modelo"
+        [(ngModel)]="modelo"
+      >
+
+      <input
+        type="number"
+        placeholder="Capacidad"
+        [(ngModel)]="capacidad"
+      >
+
+      <select [(ngModel)]="tipo">
+
+        <option value="">
+          Seleccione tipo
+        </option>
+
+        <option>
+          Combi
+        </option>
+
+        <option>
+          Auto
+        </option>
+
+        <option>
+          Minivan
+        </option>
+
+      </select>
+
+      <select [(ngModel)]="estado">
+
+        <option value="">
+          Estado
+        </option>
+
+        <option>
+          Disponible
+        </option>
+
+        <option>
+          En viaje
+        </option>
+
+        <option>
+          Mantenimiento
+        </option>
+
+      </select>
+
+    </div>
+
+    <button
+  type="button"
+  class="btn-guardar"
+  (click)="registrarVehiculo()"
+  [disabled]="guardando"
+>
+  Registrar Vehículo
+</button>
+
+  </div>
+
+  
+
+  <div class="tabla-container">
+
+    <h3>
+      Lista de Vehículos
+    </h3>
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>ID</th>
+          <th>Placa</th>
+          <th>Modelo</th>
+          <th>Capacidad</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let vehiculo of listaVehiculos">
+
+          <td>{{ vehiculo.id }}</td>
+          <td>{{ vehiculo.placa }}</td>
+          <td>{{ vehiculo.modelo }}</td>
+          <td>{{ vehiculo.capacidad }}</td>
+          <td>{{ vehiculo.tipo }}</td>
+          <td>{{ vehiculo.estado }}</td>
+
+          <td>
+
+            <button
+              class="btn-eliminar"
+              (click)="eliminarVehiculo(vehiculo.id)"
+            >
+              Eliminar
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

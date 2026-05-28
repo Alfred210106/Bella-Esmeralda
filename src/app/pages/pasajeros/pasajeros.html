@@ -1,0 +1,208 @@
+<div class="layout">
+
+  <div class="sidebar">
+
+    <h2 class="logo">
+      Bella Esmeralda
+    </h2>
+
+    <ul>
+
+      <li>
+        Dashboard
+      </li>
+
+      <li class="activo">
+        Pasajeros
+      </li>
+
+      <li>
+        Viajes
+      </li>
+
+      <li>
+        Vehículos
+      </li>
+
+      <li>
+        Encomiendas
+      </li>
+
+    </ul>
+
+  </div>
+
+  <div class="contenido">
+
+    <div class="navbar">
+
+      <h3>
+        Gestión de Pasajeros
+      </h3>
+
+      <button class="btn-cerrar">
+        Cerrar sesión
+      </button>
+
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="card">
+
+      <h4>
+
+        
+
+      </h4>
+
+      <div class="form-grid">
+
+        <input
+          type="text"
+          placeholder="Nombre completo"
+          [(ngModel)]="nombre"
+        >
+
+        <input
+          type="text"
+          placeholder="DNI"
+          [(ngModel)]="dni"
+        >
+
+        <select [(ngModel)]="destino">
+
+          <option value="">
+            Seleccione destino
+          </option>
+
+          <option>
+            Lima
+          </option>
+
+          <option>
+            Huamanga
+          </option>
+
+          <option>
+            Huanta
+          </option>
+
+        </select>
+
+        <input
+          type="number"
+          placeholder="Asiento"
+          [(ngModel)]="asiento"
+        >
+
+        <input
+          type="date"
+          [(ngModel)]="fecha"
+        >
+
+        <select [(ngModel)]="vehiculo">
+
+          <option value="">
+            Seleccione vehículo
+          </option>
+
+          <option>
+            Bus Volvo
+          </option>
+
+          <option>
+            Combi Sprinter
+          </option>
+
+          <option>
+            Auto Hyundai
+          </option>
+
+          <option>
+            Minivan Toyota
+          </option>
+
+        </select>
+
+      </div>
+
+      <button
+        type="button"
+        class="btn-registrar"
+        (click)="registrarPasajero()"
+        [disabled]="guardando"
+      >
+
+        
+
+      </button>
+
+    </div>
+
+    <!-- TABLA -->
+    <div class="card tabla-card">
+
+      <h4>
+        Lista de Pasajeros
+      </h4>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Destino</th>
+            <th>Asiento</th>
+            <th>Fecha</th>
+            <th>Vehículo</th>
+            <th>Acciones</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let pasajero of listaPasajeros">
+
+            <td>{{ pasajero.id }}</td>
+            <td>{{ pasajero.nombre }}</td>
+            <td>{{ pasajero.dni }}</td>
+            <td>{{ pasajero.destino }}</td>
+            <td>{{ pasajero.asiento }}</td>
+            <td>{{ pasajero.fecha }}</td>
+            <td>{{ pasajero.vehiculo }}</td>
+
+            <td>
+
+              <button
+                class="btn-editar"
+                (click)="editarPasajero(pasajero)"
+              >
+                Editar
+              </button>
+
+              <button
+                class="btn-eliminar"
+                (click)="eliminarPasajero(pasajero.id)"
+              >
+                Eliminar
+              </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
