@@ -1,236 +1,361 @@
-*{
+/* ==========================================================
+   RESETEO GENERAL Y HOJA BASE
+   ========================================================== */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
-
+body, html {
+  height: 100%;
   background: #eef2f7;
-
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
 
-.dashboard-container{
-
-  min-height: 100vh;
-
-  background:
-  linear-gradient(
-    rgba(240,245,250,0.95),
-    rgba(240,245,250,0.95)
-  );
-
+/* ==========================================================
+   ESTRUCTURA DEL DASHBOARD (LAYOUT)
+   ========================================================== */
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
-.navbar-custom{
+.dashboard-body {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 70px);
+  overflow: hidden;
+}
 
-  background:
-  linear-gradient(
-    90deg,
-    #046b52,
-    #0aa37a
-  );
-
+/* ==========================================================
+   BARRA DE NAVEGACIÓN SUPERIOR (NAVBAR)
+   ========================================================== */
+.navbar-custom {
+  background: linear-gradient(90deg, #046b52, #0aa37a);
   color: white;
-
-  padding: 20px;
-
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  padding: 15px 30px;
+  height: 70px;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  z-index: 100;
 }
 
-.titulo-sistema{
-
-  font-size: 30px;
+.titulo-sistema {
+  font-size: 24px;
   font-weight: bold;
-}
-
-.btn-cerrar{
-
-  border-radius: 12px;
-
-  font-weight: bold;
-
-  padding: 10px 18px;
-
-  transition: 0.3s;
-}
-
-.btn-cerrar:hover{
-
-  transform: scale(1.05);
-}
-
-.sidebar-custom{
-
-  background:
-  linear-gradient(
-    180deg,
-    #03382c,
-    #046b52
-  );
-
+  margin: 0;
   color: white;
-
-  min-height: 100vh;
-
-  padding: 25px;
-
-  box-shadow: 4px 0 20px rgba(0,0,0,0.1);
 }
 
-.menu-link{
-
-  color: white !important;
-
-  font-size: 16px;
-
-  padding: 12px;
-
-  border-radius: 12px;
-
+.btn-cerrar {
+  background: #ffd000;
+  color: #03382c;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 8px 18px;
   transition: 0.3s;
-
   cursor: pointer;
 }
 
-.menu-link:hover{
-
-  background: rgba(255,255,255,0.15);
-
-  transform: translateX(5px);
+.btn-cerrar:hover {
+  transform: scale(1.05);
+  background: #e6bc00;
 }
 
-.active{
+/* ==========================================================
+   BARRA LATERAL DE OPERACIONES (SIDEBAR)
+   ========================================================== */
+.sidebar-custom {
+  background: linear-gradient(180deg, #03382c, #046b52);
+  color: white;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px 15px;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.05);
+}
 
-  background: #ffd000;
-
-  color: #03382c !important;
-
+.sidebar-title {
   font-weight: bold;
-}
-
-.soporte-box{
-
-  margin-top: 50px;
-
-  background: rgba(255,255,255,0.1);
-
-  padding: 18px;
-
-  border-radius: 18px;
-
+  letter-spacing: 1px;
+  font-size: 14px;
   text-align: center;
-}
-
-.soporte-box h6{
-
   color: #ffd000;
-
-  margin-bottom: 10px;
-}
-
-.soporte-box p{
-
-  margin: 0;
-
-  font-weight: bold;
-}
-
-.contenido-dashboard{
-
-  padding: 35px;
-}
-
-.titulo-panel{
-
-  font-size: 32px;
-
-  color: #03382c;
-
-  font-weight: bold;
-}
-
-.card-dashboard{
-
-  border-radius: 22px;
-
-  overflow: hidden;
-
-  transition: 0.3s;
-
-  background: white;
-}
-
-.card-dashboard:hover{
-
-  transform: translateY(-5px);
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-.card-dashboard .card-body{
-
-  padding: 30px;
-}
-
-.card-dashboard h5{
-
-  color: #666;
-
   margin-bottom: 15px;
 }
 
-.numero{
+.sidebar-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 20px;
+}
 
-  font-size: 42px;
+.menu-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 15px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  transition: 0.3s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
 
+.menu-link:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateX(5px);
+  color: white !important;
+}
+
+.active {
+  background: #ffd000 !important;
+  color: #03382c !important;
   font-weight: bold;
 }
 
-.verde{
-  color: #046b52;
+.sidebar-footer {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding-top: 15px;
 }
 
-.azul{
-  color: #0066ff;
+/* ==========================================================
+   ÁREA CENTRAL DE CONTENIDO
+   ========================================================== */
+.contenido-dashboard {
+  flex: 1;
+  padding: 30px;
+  background: #eef2f7;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-.amarillo{
-  color: #ffb300;
+.titulo-panel {
+  font-size: 22px;
+  color: #03382c;
+  font-weight: bold;
 }
 
-.tabla-dashboard{
-
-  border-radius: 22px;
-
-  overflow: hidden;
-
+/* ==========================================================
+   TARJETAS DE INDICADORES (KPIs)
+   ========================================================== */
+.card-dashboard {
+  border-radius: 16px;
+  border: none;
   background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: 0.3s ease;
 }
 
-.table{
+.card-dashboard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(4, 107, 82, 0.12);
+}
 
+.card-dashboard .card-body {
+  padding: 20px;
+}
+
+.card-dashboard h5 {
+  color: #64748b;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.numero {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.card-pasajeros { border-left: 5px solid #0aa37a; }
+.card-viajes { border-left: 5px solid #0066ff; }
+.card-encomiendas { border-left: 5px solid #ffb300; }
+.card-vehiculos { border-left: 5px solid #046b52; }
+
+.verde { color: #0aa37a; }
+.azul { color: #0066ff; }
+.amarillo { color: #ffb300; }
+
+/* ==========================================================
+   SECCIÓN INFERIOR: MÓDULOS Y TABLAS DEL SISTEMA
+   ========================================================== */
+.tabla-dashboard {
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
   margin-bottom: 0;
 }
 
-.table thead{
-
+.table thead {
   background: #046b52;
+}
 
+.table thead th {
+  color: white !important;
+  font-weight: 600;
+  padding: 12px;
+  border: none;
+}
+
+.table tbody td {
+  padding: 14px 12px;
+  color: #334155;
+}
+
+.contador-limpio {
+  font-size: 16px !important;
+  font-weight: bold !important;
+  text-shadow: none !important;
+}
+
+.txt-verde { color: #046b52 !important; }
+.txt-azul { color: #0066ff !important; }
+.txt-amarillo { color: #d99b00 !important; }
+.txt-gris { color: #64748b !important; }
+
+/* ==========================================================
+   ESTILOS PREMIUM PARA EL FORMULARIO DE MONITOREO (ANTIVACÍO)
+   ========================================================== */
+
+/* Fondo con efecto Blueprint/Grid tecnológico sutil */
+.card-body-tech {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(to right, rgba(4, 107, 82, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(4, 107, 82, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Destello de luz ambiental de fondo para romper la rigidez blanca */
+.tech-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 90% 80%, rgba(10, 163, 122, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Pequeñas esferas para encapsular los emojis dándoles limpieza visual */
+.icon-circle {
+  width: 36px;
+  height: 36px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  border: 1px solid #edf2f7;
+  flex-shrink: 0;
+}
+
+/* Sombra y enfoque del input mejorados */
+.form-control-custom {
+  transition: all 0.25s ease-in-out !important;
+}
+
+.form-control-custom:focus {
+  border-color: #0aa37a !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(10, 163, 122, 0.1) !important;
+  outline: none;
+}
+
+.btn-buscar-custom {
+  background-color: #0aa37a;
   color: white;
+  border: none;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-.table tbody tr:hover{
-
-  background: #f4fff9;
+.btn-buscar-custom:hover {
+  background-color: #046b52;
+  transform: translateY(-1px);
 }
 
-.badge{
+/* Tarjeta de éxito rediseñada con un tono verde menta clínico de fondo */
+.bg-resultado-exito {
+  background: linear-gradient(145deg, #f0fdf4, #e6fcf0) !important;
+  border: 1px solid rgba(10, 163, 122, 0.12);
+}
 
-  padding: 10px 14px;
+/* Tarjeta de error rediseñada con un tono rojizo sutil */
+.bg-resultado-error {
+  background: linear-gradient(145deg, #fef2f2, #fee2e2) !important;
+  border: 1px solid rgba(239, 68, 68, 0.1);
+}
 
-  border-radius: 10px;
+.bg-warning-custom {
+  background-color: #ffd000;
+  color: #03382c;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+}
 
-  font-size: 13px;
+/* ==========================================================
+   ELEMENTOS ADICIONALES (WHATSAPP Y ANIMACIÓN)
+   ========================================================== */
+.animate__fadeIn {
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.whatsapp-flotante {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #25d366;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 9999;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  font-size: 26px;
+}
+
+.whatsapp-flotante:hover {
+  transform: scale(1.1);
 }

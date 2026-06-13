@@ -1,1 +1,119 @@
-<p>encomiendas works!</p>
+<div class="vehiculos-container" style="padding: 20px; box-sizing: border-box; width: 100%; font-family: sans-serif;">
+
+  <div class="navbar">
+    <h2>Gestión de Encomiendas</h2>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <button *ngIf="IsAlarmaActiva" (click)="detenerAlarmaCritica()" style="background-color: #d32f2f; color: white; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; animation: pulse 1s infinite;">
+        🔕 Silenciar Alarma
+      </button>
+      <button routerLink="/dashboard">Volver</button>
+    </div>
+  </div>
+
+  <div class="card-formulario">
+    <h3>Registro de Encomiendas</h3>
+
+    <div class="grid-form">
+
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">REMITENTE</label>
+        <input type="text" placeholder="Nombre de quien envía" [(ngModel)]="remitente" autocomplete="off">
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">DESTINATARIO</label>
+        <input type="text" placeholder="Nombre de quien recibe" [(ngModel)]="destinatario" autocomplete="off">
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column; grid-column: span 2;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">DESCRIPCIÓN DEL PAQUETE</label>
+        <input type="text" placeholder="Ej: Caja de cartón con repuestos / Saco de papas" [(ngModel)]="descripcion" autocomplete="off">
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">DESTINO DE ENVÍO</label>
+        <select [(ngModel)]="destino">
+          <option value="">Seleccione destino</option>
+          <option value="Huanta">Huanta</option>
+          <option value="Huamanga">Huamanga</option>
+          <option value="Ayacucho">Ayacucho</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">ESTADO INICIAL</label>
+        <select [(ngModel)]="estado">
+          <option value="">Seleccione Estado</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="En ruta">En ruta</option>
+          <option value="Entregado">Entregado</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">PESO ESTIMADO (KG)</label>
+        <input type="number" step="0.1" placeholder="Ej: 5.5" [(ngModel)]="peso" autocomplete="off">
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">PRECIO DE ENVÍO (S/.)</label>
+        <input type="number" step="0.50" placeholder="Ej: 15.00" [(ngModel)]="precio_envio" autocomplete="off">
+      </div>
+
+    </div>
+
+    <button type="button" class="btn-guardar" (click)="registrarEncomienda()" [disabled]="guardando">
+      {{ guardando ? 'Registrando...' : 'Registrar Encomienda' }}
+    </button>
+  </div>
+
+  <div class="tabla-container">
+    <h3>Lista de Encomiendas</h3>
+    <div style="width: 100%; overflow-x: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Remitente</th>
+            <th>Destinatario</th>
+            <th>Descripción</th>
+            <th>Destino</th>
+            <th>Peso</th>
+            <th>Costo Envío</th>
+            <th>Estado</th>
+            <th style="text-align: center;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let encomienda of listaEncomiendas">
+            <td>{{ encomienda.id }}</td>
+            <td style="font-weight: 500;">{{ encomienda.remitente }}</td>
+            <td>{{ encomienda.destinatario }}</td>
+            <td style="color: #555;">{{ encomienda.descripcion }}</td>
+            <td>{{ encomienda.destino }}</td>
+            <td>{{ encomienda.peso }} kg</td>
+            <td style="font-weight: bold; color: #2e7d32;">S/. {{ encomienda.precio_envio }}</td>
+            <td>
+              <span [style.background-color]="encomienda.estado === 'Alta Prioridad' ? '#ffebee' : (encomienda.estado === 'Entregado' ? '#e8f5e9' : (encomienda.estado === 'En ruta' ? '#e3f2fd' : '#fff3e0'))" 
+                    [style.color]="encomienda.estado === 'Alta Prioridad' ? '#c62828' : (encomienda.estado === 'Entregado' ? '#1b5e20' : (encomienda.estado === 'En ruta' ? '#0d47a1' : '#e65100'))" 
+                    style="padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block;">
+                {{ encomienda.estado }}
+              </span>
+            </td>
+            <td style="text-align: center;">
+              <button class="btn-eliminar" (click)="eliminarEncomienda(encomienda.id)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="listaEncomiendas.length === 0">
+            <td colspan="9" style="text-align: center; color: #888; padding: 25px; font-style: italic;">
+              No hay encomiendas registradas en el sistema.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

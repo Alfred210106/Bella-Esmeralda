@@ -1,135 +1,195 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-body{
+body {
   background: #eef2f7;
 }
 
-.login-container{
-
+/* Contenedor General con la hermosa vista de Huanta */
+.login-container {
   width: 100%;
   height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background:
-linear-gradient(
-  rgba(0,0,0,0.35),
-  rgba(0,0,0,0.35)
-),
-url('/huanta.jpg');
-
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
-}
-
-.login-card{
-
-  width: 420px;
-
-  background: rgba(255,255,255,0.95);
-
-  backdrop-filter: blur(10px);
-
-  padding: 40px;
-
-  border-radius: 25px;
-
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-
-  text-align: center;
-}
-
-.logo{
-
-  font-size: 34px;
-  font-weight: bold;
-
-  color: #046b52;
-
-  margin-bottom: 10px;
-}
-
-.subtitulo{
-  color: #666;
-  margin-bottom: 30px;
-}
-
-.input-group{
-  margin-bottom: 20px;
-}
-
-.input-group input{
-
-  width: 100%;
-
-  padding: 15px;
-
-  border-radius: 14px;
-
-  border: 2px solid #dfe6ed;
-
-  outline: none;
-
-  font-size: 15px;
-
-  transition: 0.3s;
-}
-
-.input-group input:focus{
-
-  border-color: #046b52;
-
-  box-shadow: 0 0 10px rgba(4,107,82,0.2);
-}
-
-.btn-login{
-
-  width: 100%;
-
   background: linear-gradient(
-    90deg,
-    #046b52,
-    #0aa37a
-  );
+    rgba(3, 56, 44, 0.45), /* Tono verde esmeralda oscuro translúcido */
+    rgba(0, 0, 0, 0.4)
+  ),
+  url('/huanta.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-  color: white;
+/* Tarjeta con efecto Glassmorphism suave */
+.login-card {
+  width: 420px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  padding: 45px 40px;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
 
-  border: none;
+.logo {
+  font-size: 36px;
+  font-weight: 800;
+  color: #046b52;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
 
-  padding: 15px;
+.subtitulo {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 35px;
+}
 
+/* Alerta de error elegante integrada */
+.alert-error-custom {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border: 1px solid #fca5a5;
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Grupos de entrada adaptados para iconos */
+.input-group {
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  font-size: 16px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 15px 15px 15px 45px; /* Margen izquierdo para el icono */
   border-radius: 14px;
+  border: 2px solid #e2e8f0;
+  outline: none;
+  font-size: 15px;
+  color: #1e293b;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+}
 
+/* Espacio extra a la derecha del input de contraseña para que el texto no choque con el ojo */
+.input-group input.input-password {
+  padding-right: 45px;
+}
+
+.input-group input:focus {
+  border-color: #046b52;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(4, 107, 82, 0.15);
+}
+
+/* Botón estilizado corporativo */
+.btn-login {
+  width: 100%;
+  background: linear-gradient(90deg, #046b52, #0aa37a);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 14px;
   cursor: pointer;
-
   font-size: 16px;
   font-weight: bold;
-
-  transition: 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(4, 107, 82, 0.2);
+  margin-top: 5px;
 }
 
-.btn-login:hover{
-  transform: scale(1.03);
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(4, 107, 82, 0.3);
+  background: linear-gradient(90deg, #0aa37a, #046b52);
 }
 
-.extra{
-
-  margin-top: 20px;
-
-  color: #666;
-
-  font-size: 14px;
+.btn-login:active {
+  transform: translateY(0);
 }
 
-.extra span{
-  color: #ffd000;
+/* Detalles del pie */
+.extra {
+  margin-top: 25px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.extra span {
+  color: #d99b00; /* Oro elegante */
   font-weight: bold;
+  margin-left: 4px;
+}
+
+/* Animación de vibración para cuando hay un error */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* Botón para mostrar/ocultar contraseña dentro del input */
+.btn-toggle-password {
+  position: absolute;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.btn-toggle-password:hover {
+  transform: scale(1.15);
+}
+
+/* Efecto visual cuando un campo obligatorio está vacío */
+.input-group input.input-error {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2;
+}
+
+/* Estado deshabilitado del botón e inputs durante la carga */
+.btn-login:disabled, .btn-toggle-password:disabled {
+  background: #cbd5e1 !important;
+  color: #64748b !important;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.input-group input:disabled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  border-color: #cbd5e1;
+  cursor: not-allowed;
 }

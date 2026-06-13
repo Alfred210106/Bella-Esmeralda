@@ -1,150 +1,100 @@
-<div class="vehiculos-container">
+<div class="vehiculos-container" style="padding: 20px; box-sizing: border-box; width: 100%; font-family: sans-serif;">
 
   <div class="navbar">
-
-    <h2>
-      Gestión de Vehículos
-    </h2>
-
-    <button routerLink="/dashboard">
-      Volver
-    </button>
-
+    <h2>Gestión de Vehículos</h2>
+    <button routerLink="/dashboard">Volver</button>
   </div>
 
   <div class="card-formulario">
-
-    <h3>
-      Registro de Vehículos
-    </h3>
+    <h3>Registro de Vehículos</h3>
 
     <div class="grid-form">
 
-      <input
-        type="text"
-        placeholder="Placa"
-        [(ngModel)]="placa"
-      >
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">NÚMERO DE PLACA</label>
+        <input type="text" placeholder="Ej: ABC-123" [(ngModel)]="placa">
+      </div>
 
-      <input
-        type="text"
-        placeholder="Modelo"
-        [(ngModel)]="modelo"
-      >
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">MODELO / MARCA</label>
+        <input type="text" placeholder="Ej: Toyota Probox" [(ngModel)]="modelo">
+      </div>
 
-      <input
-        type="number"
-        placeholder="Capacidad"
-        [(ngModel)]="capacidad"
-      >
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">CAPACIDAD DE ASIENTOS</label>
+        <input type="number" [(ngModel)]="capacidad" readonly style="background-color: #e9ecef;">
+      </div>
 
-      <select [(ngModel)]="tipo">
+      <div class="form-group" style="display: flex; flex-direction: column;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">TIPO DE UNIDAD</label>
+        <select [(ngModel)]="tipo" (change)="actualizarCapacidad()">
+          <option value="">Seleccione tipo</option>
+          <option value="Combi">Combi</option>
+          <option value="Auto">Auto</option>
+          <option value="Minivan">Minivan</option>
+        </select>
+      </div>
 
-        <option value="">
-          Seleccione tipo
-        </option>
-
-        <option>
-          Combi
-        </option>
-
-        <option>
-          Auto
-        </option>
-
-        <option>
-          Minivan
-        </option>
-
-      </select>
-
-      <select [(ngModel)]="estado">
-
-        <option value="">
-          Estado
-        </option>
-
-        <option>
-          Disponible
-        </option>
-
-        <option>
-          En viaje
-        </option>
-
-        <option>
-          Mantenimiento
-        </option>
-
-      </select>
+      <div class="form-group" style="display: flex; flex-direction: column; grid-column: span 2;">
+        <label style="margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #666;">ESTADO OPERATIVO</label>
+        <select [(ngModel)]="estado">
+          <option value="">Seleccione Estado</option>
+          <option value="Disponible">Disponible</option>
+          <option value="En viaje">En viaje</option>
+          <option value="Mantenimiento">Mantenimiento</option>
+        </select>
+      </div>
 
     </div>
 
-    <button
-  type="button"
-  class="btn-guardar"
-  (click)="registrarVehiculo()"
-  [disabled]="guardando"
->
-  Registrar Vehículo
-</button>
-
+    <button type="button" class="btn-guardar" (click)="registrarVehiculo()" [disabled]="guardando">
+      {{ guardando ? 'Registrando...' : 'Registrar Vehículo' }}
+    </button>
   </div>
 
-  
-
   <div class="tabla-container">
-
-    <h3>
-      Lista de Vehículos
-    </h3>
-
-    <table>
-
-      <thead>
-
-        <tr>
-
-          <th>ID</th>
-          <th>Placa</th>
-          <th>Modelo</th>
-          <th>Capacidad</th>
-          <th>Tipo</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-        <tr *ngFor="let vehiculo of listaVehiculos">
-
-          <td>{{ vehiculo.id }}</td>
-          <td>{{ vehiculo.placa }}</td>
-          <td>{{ vehiculo.modelo }}</td>
-          <td>{{ vehiculo.capacidad }}</td>
-          <td>{{ vehiculo.tipo }}</td>
-          <td>{{ vehiculo.estado }}</td>
-
-          <td>
-
-            <button
-              class="btn-eliminar"
-              (click)="eliminarVehiculo(vehiculo.id)"
-            >
-              Eliminar
-            </button>
-
-          </td>
-
-        </tr>
-
-      </tbody>
-
-    </table>
-
+    <h3>Lista de Vehículos</h3>
+    <div style="width: 100%; overflow-x: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Placa</th>
+            <th>Modelo</th>
+            <th>Capacidad</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th style="text-align: center;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vehiculo of listaVehiculos">
+            <td>{{ vehiculo.id }}</td>
+            <td style="font-weight: bold; color: #046b52;">{{ vehiculo.placa | uppercase }}</td>
+            <td>{{ vehiculo.modelo }}</td>
+            <td>{{ vehiculo.capacidad }} asientos</td>
+            <td>{{ vehiculo.tipo_unidad }}</td>
+            <td>
+              <span [style.background-color]="vehiculo.estado === 'Disponible' ? '#e8f5e9' : (vehiculo.estado === 'En viaje' ? '#e3f2fd' : '#fff3e0')" 
+                    [style.color]="vehiculo.estado === 'Disponible' ? '#1b5e20' : (vehiculo.estado === 'En viaje' ? '#0d47a1' : '#e65100')" 
+                    style="padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block;">
+                {{ vehiculo.estado }}
+              </span>
+            </td>
+            <td style="text-align: center;">
+              <button class="btn-eliminar" (click)="eliminarVehiculo(vehiculo.id)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="listaVehiculos.length === 0">
+            <td colspan="7" style="text-align: center; color: #888; padding: 25px; font-style: italic;">
+              No hay vehículos registrados en el sistema.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 </div>

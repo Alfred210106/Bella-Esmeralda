@@ -1,1 +1,145 @@
-<p>viajes works!</p>
+<div class="viajes-page-wrapper" style="padding: 20px; box-sizing: border-box; width: 100%; font-family: sans-serif;">
+
+  <div class="navbar" style="background-color: #0b7a53; padding: 15px 20px; border-radius: 10px; margin-bottom: 25px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;">
+    <h2 style="color: #ffffff; margin: 0; font-weight: 500; font-size: 22px;">
+      Gestión de Viajes
+    </h2>
+    <button routerLink="/dashboard" style="background-color: #f1c40f; border: none; color: #000; font-weight: bold; padding: 8px 20px; border-radius: 5px; cursor: pointer;">
+      Volver
+    </button>
+  </div>
+
+  <div class="card-formulario" style="background: #ffffff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; box-sizing: border-box; width: 100%;">
+    <h3 style="color: #333; margin-bottom: 20px; font-size: 18px; font-weight: bold;">
+      Registro de Viajes / Control de Unidades
+    </h3>
+
+    <div class="grid-form" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+      
+      <div class="form-group">
+        <label style="display:block; margin-bottom:5px; font-size:12px; font-weight:bold; color:#666;">RUTA / DESTINO</label>
+        <select [(ngModel)]="destino" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; height: 42px;">
+          <option value="">Seleccione el Destino</option>
+          <option value="Huanta">Huanta</option>
+          <option value="Huamanga">Huamanga</option>
+          <option value="Ayacucho">Ayacucho</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label style="display:block; margin-bottom:5px; font-size:12px; font-weight:bold; color:#666;">HORA DE SALIDA</label>
+        <input type="time" [(ngModel)]="hora" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; height: 42px;">
+      </div>
+
+      <div class="form-group">
+        <label style="display:block; margin-bottom:5px; font-size:12px; font-weight:bold; color:#666;">FECHA DE VIAJE</label>
+        <input type="date" [(ngModel)]="fecha" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; height: 42px;">
+      </div>
+
+      <div class="form-group">
+        <label style="display:block; margin-bottom:5px; font-size:12px; font-weight:bold; color:#666;">CHOFER ASIGNADO</label>
+        <input type="text" placeholder="Nombre del Chofer" [(ngModel)]="chofer" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; height: 42px;">
+      </div>
+
+      <div class="form-group">
+        <label style="display:block; margin-bottom:5px; font-size:12px; font-weight:bold; color:#666;">VEHÍCULO (MODELO O PLACA)</label>
+        <input type="text" placeholder="Ej: Toyota - ABC-123" [(ngModel)]="vehiculo" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; height: 42px;">
+      </div>
+
+      <div class="form-group">
+        <label style="display:block; margin-bottom:5px; font-size:12px; font-weight:bold; color:#666;">PRECIO PASAJE (TARIFAS FIJAS)</label>
+        <select [(ngModel)]="precio_pasaje" (change)="actualizarAsientosPorTarifa()" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; height: 42px;">
+          <option [ngValue]="null" disabled selected>Seleccione tarifa del vehículo</option>
+          <option [value]="10">S/. 10.00 (Auto / Minivan)</option>
+          <option [value]="8">S/. 8.00 (Combi)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label style="display:block; margin-bottom:5px; font-size:12px; font-weight:bold; color:#666;">ASIENTOS DISPONIBLES (CAPACIDAD)</label>
+        <input type="number" placeholder="Se asignará automáticamente" [(ngModel)]="asientos_disponibles" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; height: 42px;">
+      </div>
+
+      <div class="form-group">
+        <label style="display:block; margin-bottom:5px; font-size:12px; font-weight:bold; color:#666;">ESTADO DEL VIAJE</label>
+        <select [(ngModel)]="estado" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; height: 42px;">
+          <option value="">Seleccione estado</option>
+          <option value="En Cola">En Cola</option>
+          <option value="En Ruta">En Ruta</option>
+          <option value="Finalizado">Finalizado</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div style="width: 100%; margin-top: 10px;">
+      <button
+        type="button"
+        class="btn-guardar"
+        (click)="registrarViaje()"
+        [disabled]="guardando"
+        style="background-color: #0b7a53; color: white; border: none; padding: 12px 0px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 15px; display: block; text-align: center;"
+      >
+        {{ guardando ? 'Guardando...' : 'Registrar Viaje' }}
+      </button>
+    </div>
+
+  </div>
+
+  <div class="tabla-container" style="background: #ffffff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); box-sizing: border-box; width: 100%;">
+    <h3 style="color: #333; margin-bottom: 20px; font-size: 18px; font-weight: bold;">
+      Lista de Viajes / Orden de Salida
+    </h3>
+
+    <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+      <table style="width: 100%; min-width: 850px; border-collapse: collapse;">
+        <thead>
+          <tr style="background-color: #0b7a53; color: white;">
+            <th style="padding: 12px; text-align: left; font-size: 14px;">ID</th>
+            <th style="padding: 12px; text-align: left; font-size: 14px;">Destino</th>
+            <th style="padding: 12px; text-align: left; font-size: 14px;">Fecha y Hora</th>
+            <th style="padding: 12px; text-align: left; font-size: 14px;">Chofer</th>
+            <th style="padding: 12px; text-align: left; font-size: 14px;">Vehículo</th>
+            <th style="padding: 12px; text-align: left; font-size: 14px;">Precio</th>
+            <th style="padding: 12px; text-align: center; font-size: 14px;">Asientos Libres</th>
+            <th style="padding: 12px; text-align: left; font-size: 14px;">Estado</th>
+            <th style="padding: 12px; text-align: center; font-size: 14px;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let viaje of listaViajes" style="border-bottom: 1px solid #eee;">
+            <td style="padding: 12px; font-size: 14px;">{{ viaje.id }}</td>
+            <td style="padding: 12px; font-weight: 500; font-size: 14px;">{{ viaje.destino }}</td>
+            <td style="padding: 12px; font-size: 14px; white-space: nowrap;">{{ viaje.fecha }} a las {{ viaje.hora }}</td>
+            <td style="padding: 12px; font-size: 14px;">{{ viaje.chofer }}</td>
+            <td style="padding: 12px; font-size: 14px;">{{ viaje.vehiculo }}</td>
+            <td style="padding: 12px; font-weight: bold; color: #2e7d32; font-size: 14px;">S/. {{ viaje.precio_pasaje }}</td>
+            <td style="padding: 12px; text-align: center; font-weight: bold; font-size: 14px;">{{ viaje.asientos_disponibles }}</td>
+            <td style="padding: 12px; font-size: 14px;">
+              <span [style.background-color]="viaje.estado === 'En Ruta' ? '#e8f5e9' : (viaje.estado === 'En Cola' ? '#fff3e0' : '#ffebee')" 
+                    [style.color]="viaje.estado === 'En Ruta' ? '#1b5e20' : (viaje.estado === 'En Cola' ? '#e65100' : '#c62828')" 
+                    style="padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block; white-space: nowrap;">
+                {{ viaje.estado }}
+              </span>
+            </td>
+            <td style="padding: 12px; text-align: center;">
+              <button
+                class="btn-eliminar"
+                (click)="eliminarViaje(viaje.id)"
+                style="background-color: #e74c3c; color: white; border: none; padding: 6px 14px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="listaViajes.length === 0">
+            <td colspan="9" style="text-align: center; color: #888; padding: 30px; font-style: italic;">
+              No hay turnos ni viajes programados para hoy.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

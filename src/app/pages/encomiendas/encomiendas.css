@@ -1,0 +1,172 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #eef2f7;
+}
+
+.vehiculos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #046b52, #0aa37a);
+  padding: 18px 25px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  margin-bottom: 25px;
+}
+
+.navbar h2 {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.navbar button {
+  background: #ffd000;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.navbar button:hover {
+  background: #e6bc00;
+}
+
+.card-formulario {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.grid-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Forzado a 2 columnas exactas para mantener el orden de los campos */
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.grid-form input,
+.grid-form select {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+  height: 42px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grid-form input:focus,
+.grid-form select:focus {
+  border-color: #0aa37a;
+}
+
+.btn-guardar {
+  margin-top: 20px;
+  width: 100%;
+  background: linear-gradient(90deg, #046b52, #0aa37a);
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-guardar:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.tabla-container {
+  margin-top: 25px;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th {
+  background: #046b52;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.btn-eliminar {
+  background: #e74c3c;
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* Scrollbar personalizado */
+.tabla-container::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.tabla-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.tabla-container::-webkit-scrollbar-thumb {
+  background: #046b52;
+  border-radius: 10px;
+}
+
+.tabla-container::-webkit-scrollbar-thumb:hover {
+  background: #0aa37a;
+}
+
+/* Efectos en botones */
+.btn-guardar:hover,
+.btn-eliminar:hover,
+.btn-editar:hover,
+.navbar button:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-guardar:active,
+.btn-eliminar:active,
+.btn-editar:active {
+  transform: translateY(0);
+}

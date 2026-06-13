@@ -4,16 +4,16 @@ header("Access-Control-Allow-Origin: *");
 
 include 'conexion.php';
 
-$sql = "SELECT * FROM vehiculos";
+$sql = "SELECT * FROM viajes";
 
 $resultado = mysqli_query($conexion, $sql);
 
-$vehiculos = [];
+$viajes = [];
 
 while($fila = mysqli_fetch_assoc($resultado)){
-    $vehiculos[] = $fila;
+    $viajes[] = $fila;
 }
 
-echo json_encode($vehiculos);
+echo json_encode($viajes);
 
 ?>

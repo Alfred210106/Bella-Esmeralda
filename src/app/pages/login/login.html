@@ -2,50 +2,54 @@
 
   <div class="login-card">
 
-    <h1 class="logo">
-      Bella Esmeralda
-    </h1>
+    <h1 class="logo">Bella Esmeralda</h1>
+    <p class="subtitulo">Sistema de Gestión de Transporte</p>
 
-    <p class="subtitulo">
-      Sistema de Gestión de Transporte
-    </p>
-
-    <div class="input-group">
-
-      <input
-        type="text"
-        placeholder="Usuario"
-        [(ngModel)]="usuario"
-      >
-
+    <div class="alert-error-custom" *ngIf="mostrarError">
+      ⚠️ {{ mensajeError }}
     </div>
 
     <div class="input-group">
-
+      <span class="input-icon">👤</span>
       <input
-        type="password"
-        placeholder="Contraseña"
-        [(ngModel)]="password"
+        type="text"
+        placeholder="Nombre de usuario"
+        [(ngModel)]="usuario"
+        (input)="limpiarErrorCampo('usuario')"
+        (keyup.enter)="iniciarSesion()"
+        [class.input-error]="errorUsuario"
+        [disabled]="cargando"
       >
+    </div>
 
+    <div class="input-group">
+      <span class="input-icon">🔒</span>
+      <input
+        [type]="ocultarPassword ? 'password' : 'text'"
+        placeholder="Contraseña de acceso"
+        [(ngModel)]="password"
+        (input)="limpiarErrorCampo('password')"
+        (keyup.enter)="iniciarSesion()"
+        [class.input-error]="errorPassword"
+        [disabled]="cargando"
+        class="input-password"
+      >
+      <button type="button" class="btn-toggle-password" (click)="ocultarPassword = !ocultarPassword" [disabled]="cargando">
+        {{ ocultarPassword ? '👁️' : '🙈' }}
+      </button>
     </div>
 
     <button
       class="btn-login"
       (click)="iniciarSesion()"
+      [disabled]="cargando"
     >
-
-      Iniciar Sesión
-
+      <span *ngIf="!cargando">Ingresar al Sistema</span>
+      <span *ngIf="cargando">Verificando credenciales... ⏳</span>
     </button>
 
     <div class="extra">
-
-      Ayacucho - Huanta
-      <span>
-        2026
-      </span>
-
+      Ayacucho - Huanta <span>2026</span>
     </div>
 
   </div>

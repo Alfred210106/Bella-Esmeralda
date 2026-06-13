@@ -1,208 +1,137 @@
-<div class="layout">
+<div class="dashboard-container">
 
-  <div class="sidebar">
-
-    <h2 class="logo">
-      Bella Esmeralda
+  <div class="navbar-custom d-flex justify-content-between align-items-center" style="background-color: #0b7a53; padding: 15px 30px; border-radius: 10px; margin-bottom: 25px;">
+    <h2 class="titulo-sistema" style="color: #ffffff; margin: 0; font-weight: 500; font-size: 24px;">
+      Gestión de Pasajeros
     </h2>
-
-    <ul>
-
-      <li>
-        Dashboard
-      </li>
-
-      <li class="activo">
-        Pasajeros
-      </li>
-
-      <li>
-        Viajes
-      </li>
-
-      <li>
-        Vehículos
-      </li>
-
-      <li>
-        Encomiendas
-      </li>
-
-    </ul>
-
+    <a routerLink="/dashboard" class="btn btn-warning btn-volver" style="background-color: #f1c40f; border: none; color: #000; font-weight: bold; padding: 8px 20px; border-radius: 5px; text-decoration: none;">
+      Volver
+    </a>
   </div>
 
-  <div class="contenido">
+  <div class="d-flex">
+    <div class="contenido-modulo w-100">
+      
+      <div class="card-formulario" style="background: #ffffff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <h3 class="titulo-card" style="color: #333; margin-bottom: 20px; font-size: 18px; font-weight: bold;">
+          {{ editando ? 'Modificar Registro de Pasajero' : 'Registrar Pasajero' }}
+        </h3>
 
-    <div class="navbar">
+        <div class="grid-form" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+          
+          <div class="form-group">
+            <label class="text-muted small fw-bold" style="display:block; margin-bottom:5px;">NOMBRE COMPLETO</label>
+            <input type="text" class="form-control" placeholder="Nombre completo" [(ngModel)]="nombre" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%;">
+          </div>
 
-      <h3>
-        Gestión de Pasajeros
-      </h3>
+          <div class="form-group">
+            <label class="text-muted small fw-bold" style="display:block; margin-bottom:5px;">DNI / IDENTIFICACIÓN</label>
+            <input type="text" class="form-control" placeholder="DNI" [(ngModel)]="dni" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%;">
+          </div>
 
-      <button class="btn-cerrar">
-        Cerrar sesión
-      </button>
+          <div class="form-group">
+            <label class="text-muted small fw-bold" style="display:block; margin-bottom:5px;">DESTINO DE VIAJE</label>
+            <select class="form-control" [(ngModel)]="viaje_id" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%;">
+              <option [ngValue]="0">Seleccione el Destino</option>
+              <option [ngValue]="1">Huanta - Huamanga</option>
+              <option [ngValue]="2">Huamanga - Huanta</option>
+            </select>
+          </div>
 
-    </div>
+          <div class="form-group">
+            <label class="text-muted small fw-bold" style="display:block; margin-bottom:5px;">N° DE ASIENTO</label>
+            <input type="text" class="form-control" placeholder="Asiento" [(ngModel)]="asiento" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%;">
+          </div>
 
-    <!-- FORMULARIO -->
-    <div class="card">
+          <div class="form-group">
+            <label class="text-muted small fw-bold" style="display:block; margin-bottom:5px;">TIPO DE VEHÍCULO</label>
+            <select class="form-control" [(ngModel)]="tipo_unidad" (change)="actualizarTarifa()" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%;">
+              <option value="Auto">Auto</option>
+              <option value="Minivan">Minivan</option>
+              <option value="Combi">Combi</option>
+            </select>
+          </div>
 
-      <h4>
+          <div class="form-group">
+            <label class="text-muted small fw-bold" style="display:block; margin-bottom:5px;">COSTO DEL PASAJE (PAGO EN EFECTIVO)</label>
+            <input type="text" class="form-control text-success fw-bold" [value]="'S/. ' + precio_pasaje" readonly style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; background-color: #f8f9fa;">
+          </div>
 
-        
+        </div>
 
-      </h4>
-
-      <div class="form-grid">
-
-        <input
-          type="text"
-          placeholder="Nombre completo"
-          [(ngModel)]="nombre"
-        >
-
-        <input
-          type="text"
-          placeholder="DNI"
-          [(ngModel)]="dni"
-        >
-
-        <select [(ngModel)]="destino">
-
-          <option value="">
-            Seleccione destino
-          </option>
-
-          <option>
-            Lima
-          </option>
-
-          <option>
-            Huamanga
-          </option>
-
-          <option>
-            Huanta
-          </option>
-
-        </select>
-
-        <input
-          type="number"
-          placeholder="Asiento"
-          [(ngModel)]="asiento"
-        >
-
-        <input
-          type="date"
-          [(ngModel)]="fecha"
-        >
-
-        <select [(ngModel)]="vehiculo">
-
-          <option value="">
-            Seleccione vehículo
-          </option>
-
-          <option>
-            Bus Volvo
-          </option>
-
-          <option>
-            Combi Sprinter
-          </option>
-
-          <option>
-            Auto Hyundai
-          </option>
-
-          <option>
-            Minivan Toyota
-          </option>
-
-        </select>
+        <div class="d-flex justify-content-end mt-3">
+          <button
+            type="button"
+            class="btn btn-guardar"
+            (click)="registrarPasajero()"
+            [disabled]="guardando"
+            style="background-color: #0b7a53; color: white; border: none; padding: 10px 25px; border-radius: 8px; font-weight: bold;"
+          >
+            {{ guardando ? 'Guardando...' : (editando ? 'Actualizar Pasajero' : 'Registrar Pasajero') }}
+          </button>
+        </div>
 
       </div>
 
-      <button
-        type="button"
-        class="btn-registrar"
-        (click)="registrarPasajero()"
-        [disabled]="guardando"
-      >
+      <div class="tabla-container mt-4" style="background: #ffffff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <h3 class="titulo-tabla" style="color: #333; margin-bottom: 20px; font-size: 18px; font-weight: bold;">
+          Lista de Pasajeros cobrados en Ventanilla
+        </h3>
 
-        
-
-      </button>
-
-    </div>
-
-    <!-- TABLA -->
-    <div class="card tabla-card">
-
-      <h4>
-        Lista de Pasajeros
-      </h4>
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>DNI</th>
-            <th>Destino</th>
-            <th>Asiento</th>
-            <th>Fecha</th>
-            <th>Vehículo</th>
-            <th>Acciones</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          <tr *ngFor="let pasajero of listaPasajeros">
-
-            <td>{{ pasajero.id }}</td>
-            <td>{{ pasajero.nombre }}</td>
-            <td>{{ pasajero.dni }}</td>
-            <td>{{ pasajero.destino }}</td>
-            <td>{{ pasajero.asiento }}</td>
-            <td>{{ pasajero.fecha }}</td>
-            <td>{{ pasajero.vehiculo }}</td>
-
-            <td>
-
-              <button
-                class="btn-editar"
-                (click)="editarPasajero(pasajero)"
-              >
-                Editar
-              </button>
-
-              <button
-                class="btn-eliminar"
-                (click)="eliminarPasajero(pasajero.id)"
-              >
-                Eliminar
-              </button>
-
-            </td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
+        <table class="table-custom" style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background-color: #0b7a53; color: white;">
+              <th style="padding: 12px; text-align: left; border-top-left-radius: 8px; border-bottom-left-radius: 8px;">IDENTIFICACIÓN</th>
+              <th style="padding: 12px; text-align: left;">Nombre</th>
+              <th style="padding: 12px; text-align: left;">DNI</th>
+              <th style="padding: 12px; text-align: left;">Ruta / Destino</th>
+              <th style="padding: 12px; text-align: left;">Asiento</th>
+              <th style="padding: 12px; text-align: left;">Vehículo</th>
+              <th style="padding: 12px; text-align: left;">Monto Pagado</th>
+              <th style="padding: 12px; text-align: center; border-top-right-radius: 8px; border-bottom-right-radius: 8px;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pasajero of listaPasajeros" style="border-bottom: 1px solid #eee;">
+              <td style="padding: 12px;">{{ pasajero.id }}</td>
+              <td style="padding: 12px;">{{ pasajero.nombre }}</td>
+              <td style="padding: 12px;">{{ pasajero.dni }}</td>
+              <td style="padding: 12px;">
+                {{ pasajero.viaje_id == 1 ? 'Huanta - Huamanga' : 'Huamanga - Huanta' }}
+              </td>
+              <td style="padding: 12px;">{{ pasajero.asiento }}</td>
+              <td style="padding: 12px;">
+                <span class="badge" style="background-color: #e8f5e9; color: #1b5e20; padding: 5px 10px; border-radius: 4px;">{{ pasajero.tipo_unidad }}</span>
+              </td>
+              <td style="padding: 12px; font-weight: bold; color: #2e7d32;">S/. {{ pasajero.precio_pasaje }}</td>
+              <td style="padding: 12px; text-align: center;">
+                <div class="action-buttons" style="display: flex; gap: 8px; justify-content: center;">
+                  <button
+                    class="btn-editar"
+                    (click)="editarPasajero(pasajero)"
+                    style="background-color: #f1c40f; color: black; border: none; padding: 6px 14px; border-radius: 5px; font-weight: bold; cursor: pointer;"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="btn-eliminar"
+                    (click)="eliminarPasajero(pasajero.id)"
+                    style="background-color: #e74c3c; color: white; border: none; padding: 6px 14px; border-radius: 5px; font-weight: bold; cursor: pointer;"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="listaPasajeros.length === 0">
+              <td colspan="8" style="text-align: center; color: #888; padding: 30px; font-style: italic;">
+                No hay pasajeros registrados actualmente en el sistema.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
     </div>
-
   </div>
-
 </div>

@@ -1,263 +1,267 @@
-<div class="dashboard-container">
+<div class="dashboard-layout">
 
-  
-  <div class="navbar-custom d-flex justify-content-between align-items-center">
-
-    <h2 class="titulo-sistema">
-      Bella Esmeralda
-    </h2>
-
-    <button
-      class="btn btn-light btn-cerrar"
-      routerLink="/login"
-    >
+  <header class="navbar-custom">
+    <h2 class="titulo-sistema">Bella Esmeralda</h2>
+    <button class="btn btn-cerrar" (click)="logout()">
       Cerrar sesión
     </button>
+  </header>
+
+  <div class="dashboard-body">
+
+    <aside class="sidebar-custom">
+      <div class="sidebar-menu-wrapper">
+        <h3 class="sidebar-title">MENÚ DE OPERACIONES</h3>
+        <hr class="sidebar-divider">
+
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a routerLink="/dashboard" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu-link">
+              <span class="menu-icon">📊</span> Panel
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/dashboard/pasajeros" routerLinkActive="active" class="menu-link">
+              <span class="menu-icon">👥</span> Pasajeros
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/dashboard/viajes" routerLinkActive="active" class="menu-link">
+              <span class="menu-icon">🗺️</span> Viajes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/dashboard/encomiendas" routerLinkActive="active" class="menu-link">
+              <span class="menu-icon">📦</span> Encomiendas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/dashboard/vehiculos" routerLinkActive="active" class="menu-link">
+              <span class="menu-icon">🚌</span> Vehículos
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        Terminal Huanta &copy; 2026
+      </div>
+    </aside>
+
+    <main class="contenido-dashboard">
+
+      <router-outlet></router-outlet>
+
+      <div *ngIf="router.url === '/dashboard'" class="panel-default-view">
+        
+        <h1 class="titulo-panel mb-4">Resumen General del Terminal</h1>
+
+        <div class="row">
+          
+          <div class="col-md-2-5 col-sm-6 mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card card-dashboard card-pasajeros shadow-sm">
+              <div class="card-body">
+                <h5>Pasajeros Registrados</h5>
+                <div class="numero verde">{{ totalPasajeros }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-2-5 col-sm-6 mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card card-dashboard card-viajes shadow-sm">
+              <div class="card-body">
+                <h5>Viajes Activos (Turnos)</h5>
+                <div class="numero azul">{{ totalViajes }}</div> 
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-2-5 col-sm-6 mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card card-dashboard card-encomiendas shadow-sm">
+              <div class="card-body">
+                <h5>Encomiendas en Oficina</h5>
+                <div class="numero amarillo">{{ totalEncomiendas }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-2-5 col-sm-6 mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card card-dashboard card-vehiculos shadow-sm">
+              <div class="card-body">
+                <h5>Unidades Monitoreadas</h5>
+                <div class="numero verde">{{ totalVehiculos }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-2-5 col-sm-6 mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card shadow-sm" style="border-left: 5px solid #d32f2f; background: #fff; height: 100%; min-height: 112px; border-radius: 12px; display: flex; align-items: center;">
+              <div class="card-body" style="padding: 15px 20px; width: 100%;">
+                <h5 style="color: #d32f2f; font-size: 13px; font-weight: bold; margin: 0; text-transform: uppercase; letter-spacing: 0.3px;">Alertas Críticas (Por IA)</h5>
+                <div class="numero" style="color: #d32f2f; font-size: 34px; font-weight: 700; line-height: 1.2; margin-top: 5px;">
+                  {{ alertasCriticasIA }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card tabla-dashboard border-0 mt-2 mb-4">
+          <div class="card-body p-2">
+            <h2 class="mb-4" style="font-size: 18px; font-weight: bold; color: #03382c;">
+              Módulos del Sistema de Gestión
+            </h2>
+            <table class="table align-middle" style="border: none; margin-bottom: 0;">
+              <tbody>
+                <tr>
+                  <td>Control de Pasajeros</td>
+                  <td style="text-align: right; width: 100px;">
+                    <span class="contador-limpio txt-verde fw-bold" style="font-size: 16px;">{{ totalPasajeros }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Gestión de Viajes Diarios</td>
+                  <td style="text-align: right; width: 100px;">
+                    <span class="contador-limpio txt-azul fw-bold" style="font-size: 16px;">{{ totalViajes }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Registro de Encomiendas (Oficina Huanta)</td>
+                  <td style="text-align: right; width: 100px;">
+                    <span class="contador-limpio txt-amarillo fw-bold" style="font-size: 16px;">{{ totalEncomiendas }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Flota de Vehículos Monitoreados</td>
+                  <td style="text-align: right; width: 100px;">
+                    <span class="contador-limpio txt-gris fw-bold" style="font-size: 16px;">{{ totalVehiculos }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Alertas Críticas (Por IA)</td>
+                  <td style="text-align: right; width: 100px;">
+                    <span class="contador-limpio fw-bold" style="color: #d32f2f; font-size: 16px;">{{ alertasCriticasIA }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card tabla-dashboard border-0 p-0 mt-4 animate__animated animate__fadeIn position-relative" style="overflow: hidden; border-radius: 16px;">
+          
+          <div class="card-header-custom" style="background: linear-gradient(135deg, #03382c, #046b52); color: white; padding: 18px 24px;">
+            <h2 class="m-0" style="font-size: 18px; font-weight: bold; color: white; display: flex; align-items: center; gap: 10px;">
+              🛡️ Monitoreo de Seguridad y Trazabilidad Familiar
+            </h2>
+          </div>
+
+          <div class="card-body p-4 position-relative card-body-tech">
+            
+            <div class="tech-bg-overlay"></div>
+
+            <p class="text-muted position-relative" style="font-size: 13.5px; margin-bottom: 25px; z-index: 2;">
+              Módulo de consulta rápida diseñado para que padres de familia y tutores verifiquen el estado de ruta de menores de edad o adultos mayores en viaje directo.
+            </p>
+
+            <div class="row align-items-center mb-4 position-relative" style="z-index: 2;">
+              <div class="col-md-9">
+                <input 
+                  type="text" 
+                  class="form-control form-control-custom" 
+                  placeholder="Ingrese el DNI del pasajero a rastrear..." 
+                  [(ngModel)]="dniBusqueda"
+                  (keyup.enter)="buscarPasajeroSeguro()"
+                  style="border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px 15px; width: 100%; font-size: 14px; background: white;"
+                >
+              </div>
+              <div class="col-md-3">
+                <button class="btn-buscar-custom" (click)="buscarPasajeroSeguro()" style="width: 100%; border-radius: 10px; padding: 13px; font-weight: bold; font-size: 14px; box-shadow: 0 4px 12px rgba(10, 163, 122, 0.2);">
+                  Verificar Ruta
+                </button>
+              </div>
+            </div>
+
+            <div class="position-relative" style="z-index: 2;">
+              
+              <div *ngIf="busquedaRealizada && pasajeroEncontrado" class="p-4 bg-resultado-exito rounded-3 border-start border-success border-5 shadow-sm mt-2">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <span style="font-size: 18px;">✅</span>
+                  <h6 class="m-0" style="font-weight: 700; color: #046b52; font-size: 15px; letter-spacing: 0.5px;">
+                    PASAJERO LOCALIZADO EN RUTA SEGURA
+                  </h6>
+                </div>
+                
+                <div class="row text-dark" style="font-size: 14px; row-gap: 16px;">
+                  <div class="col-md-4 d-flex align-items-center gap-2">
+                    <div class="icon-circle">👤</div>
+                    <div>
+                      <span class="text-muted d-block" style="font-size: 11px; font-weight: 600; letter-spacing: 0.3px;">PASAJERO</span>
+                      <strong>{{ pasajeroEncontrado.nombre }}</strong>
+                    </div>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center gap-2">
+                    <div class="icon-circle">📍</div>
+                    <div>
+                      <span class="text-muted d-block" style="font-size: 11px; font-weight: 600; letter-spacing: 0.3px;">DESTINO</span>
+                      <strong>{{ pasajeroEncontrado.destino }}</strong>
+                    </div>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center gap-2">
+                    <div class="icon-circle">💺</div>
+                    <div>
+                      <span class="text-muted d-block" style="font-size: 11px; font-weight: 600; letter-spacing: 0.3px;">N° ASIENTO</span>
+                      <strong>{{ pasajeroEncontrado.asiento }}</strong>
+                    </div>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center gap-2">
+                    <div class="icon-circle">📅</div>
+                    <div>
+                      <span class="text-muted d-block" style="font-size: 11px; font-weight: 600; letter-spacing: 0.3px;">FECHA DE VIAJE</span>
+                      <strong>{{ pasajeroEncontrado.fecha }}</strong>
+                    </div>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center gap-2">
+                    <div class="icon-circle">🚗</div>
+                    <div>
+                      <span class="text-muted d-block" style="font-size: 11px; font-weight: 600; letter-spacing: 0.3px;">TIPO DE UNIDAD</span>
+                      <strong>{{ pasajeroEncontrado.vehiculo }}</strong>
+                    </div>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center gap-2">
+                    <div class="icon-circle">🚨</div>
+                    <div>
+                      <span class="text-muted d-block" style="font-size: 11px; font-weight: 600; letter-spacing: 0.3px;">ESTADO OPERATIVO</span>
+                      <span class="badge bg-warning-custom mt-1">{{ pasajeroEncontrado.estadoViaje }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="busquedaRealizada && !pasajeroEncontrado" class="p-4 text-center bg-resultado-error rounded-3 border-start border-danger border-5 shadow-sm mt-2">
+                <span style="font-size: 14px; color: #dc3545; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                  ❌ No se registran rutas ni viajes activos para el DNI consultado el día de hoy.
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div> 
+    </main>
 
   </div>
 
-  <div class="d-flex">
-
-    
-    <div class="sidebar-custom">
-
-      <h3 class="mb-5">
-        MENÚ
-      </h3>
-
-      <ul class="nav flex-column">
-
-        <li class="nav-item mb-3">
-
-          <a
-            routerLink="/dashboard"
-            class="nav-link menu-link active"
-          >
-            Panel
-          </a>
-
-        </li>
-
-        <li class="nav-item mb-3">
-
-          <a
-            routerLink="/pasajeros"
-            class="nav-link menu-link"
-          >
-            Pasajeros
-          </a>
-
-        </li>
-
-        <li class="nav-item mb-3">
-
-          <a
-            routerLink="/viajes"
-            class="nav-link menu-link"
-          >
-            Viajes
-          </a>
-
-        </li>
-
-        <li class="nav-item mb-3">
-
-          <a
-            routerLink="/encomiendas"
-            class="nav-link menu-link"
-          >
-            Encomiendas
-          </a>
-
-        </li>
-
-        <li class="nav-item mb-3">
-
-          <a
-            routerLink="/vehiculos"
-            class="nav-link menu-link"
-          >
-            Vehículos
-          </a>
-
-        </li>
-
-      </ul>
-
-      <!-- SOPORTE -->
-      <div class="soporte-box">
-
-        <h6>
-          Soporte WhatsApp
-        </h6>
-
-        <p>
-          +51 932 114 815
-        </p>
-
-      </div>
-
-    </div>
-
-    <div class="contenido-dashboard w-100">
-
-      <h1 class="titulo-panel mb-4">
-        Director del panel
-      </h1>
-
-      <!-- TARJETAS -->
-      <div class="row">
-
-        <div class="col-md-4 mb-4">
-
-          <div class="card card-dashboard shadow border-0">
-
-            <div class="card-body">
-
-              <h5>
-                Pasajeros Totales
-              </h5>
-
-              <div class="numero verde">
-                120
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="col-md-4 mb-4">
-
-          <div class="card card-dashboard shadow border-0">
-
-            <div class="card-body">
-
-              <h5>
-                Viajes Hoy
-              </h5>
-
-              <div class="numero azul">
-                15
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="col-md-4 mb-4">
-
-          <div class="card card-dashboard shadow border-0">
-
-            <div class="card-body">
-
-              <h5>
-                Encomiendas
-              </h5>
-
-              <div class="numero amarillo">
-                35
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- TABLA -->
-      <div class="card tabla-dashboard shadow border-0 mt-4">
-
-        <div class="card-body">
-
-          <h2 class="mb-4">
-            Últimos Viajes
-          </h2>
-
-          <table class="table align-middle">
-
-            <thead>
-
-              <tr>
-
-                <th>Destino</th>
-                <th>Hora</th>
-                <th>Chofer</th>
-                <th>Vehículo</th>
-                <th>Estado</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              <tr>
-
-                <td>Huamanga</td>
-                <td>08:00 AM</td>
-                <td>Carlos Pérez</td>
-                <td>Sprinter combinado</td>
-
-                <td>
-
-                  <span class="badge bg-success">
-                    En ruta
-                  </span>
-
-                </td>
-
-              </tr>
-
-              <tr>
-
-                <td>Lima</td>
-                <td>09:30 AM</td>
-                <td>Juan Ramos</td>
-                <td>Autobús Volvo</td>
-
-                <td>
-
-                  <span class="badge bg-warning text-dark">
-                    Pendiente
-                  </span>
-
-                </td>
-
-              </tr>
-
-              <tr>
-
-                <td>Huanta</td>
-                <td>11:00 AM</td>
-                <td>Pedro López</td>
-                <td>Auto Hyundai</td>
-
-                <td>
-
-                  <span class="badge bg-danger">
-                    Cancelado
-                  </span>
-
-                </td>
-
-              </tr>
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
+  <a 
+    href="https://api.whatsapp.com/send?phone=51932114815&text=Hola%20Alfred,%20necesito%20soporte%20con%20el%20sistema%20Bella%20Esmeralda" 
+    target="_blank" 
+    class="whatsapp-flotante"
+    title="Soporte WhatsApp Técnico"
+  >
+    💬
+  </a>
 
 </div>
